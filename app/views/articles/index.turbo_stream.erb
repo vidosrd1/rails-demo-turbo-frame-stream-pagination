@@ -1,0 +1,62 @@
+<!-- infinite scrolling -->
+<%= turbo_stream.remove("articles_placeholder") %>
+<%= turbo_stream.append("articles_list") do %>
+  <div class="mt-8 md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% @articles.each do |article| %>
+      <%= render article %>
+    <% end %>
+  </div>  
+<% end %>
+<% if @pagy.next.present? %>
+  <%= turbo_stream.replace "articles_pagination" do %>
+    <%= turbo_frame_tag "articles_pagination", src: articles_url(page: @pagy.next, format: "turbo_stream"), loading: "lazy", data: { mutate_on_connect: true } %>
+  <% end %>
+<% end %>    
+
+
+<%
+=begin%>
+<!--manual scrolling + append next -->
+<%= turbo_stream.remove("articles_placeholder") %>
+<%= turbo_stream.append("articles_list") do %>
+  <div class="mt-8 md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% @articles.each do |article| %>
+      <%= render article %>
+    <% end %>
+  </div> 
+<% end %>
+<%= turbo_stream.update "articles_pagination" do %>
+  <% if @pagy.next %>
+    <div class="text-center mt-12">
+      <%= link_to "Next", articles_url(page: @pagy.next), data: { turbo_stream: true }, class: "bg-white rounded px-6 py-3 border border-black shadow" %>
+      <p class="mt-8 text-gray-500"><%== pagy_info @pagy %></p>
+    </div>
+  <% end %>
+<% end %>  
+<%
+=end%>
+
+
+<%
+=begin%>
+<!--manual scrolling + next/prev -->
+<%= turbo_stream.update("articles_list") do %>
+  <div class="mt-8 md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <% @articles.each do |article| %>
+      <%= render article %>
+    <% end %>
+  </div>
+<% end %>
+<%= turbo_stream.update "articles_pagination" do %>
+  <div class="flex mt-12 items-center justify-center space-x-4 w-full">
+    <% if @pagy.prev %>
+      <%= link_to "Prev", articles_url(page: @pagy.prev), data: { turbo_stream: true }, class: "bg-white rounded px-6 py-3 border border-black shadow" %>
+    <% end %>
+    <% if @pagy.next %>
+      <%= link_to "Next", articles_url(page: @pagy.next), data: { turbo_stream: true }, class: "bg-white rounded px-6 py-3 border border-black shadow" %>
+    <% end %> 
+  </div>
+  <p class="text-center mt-8 text-gray-500"><%== pagy_info @pagy %></p>
+<% end %>    
+<%
+=end%>
