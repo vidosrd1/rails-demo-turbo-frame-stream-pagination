@@ -1,24 +1,5 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This repository demonstrates how to perform a modular (switch between cursor/prev+next/infinite scroll) pagination using Rails 7 + Turbo Frames + Turbo Streams and Stimulus JS. 
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+🧑‍💻 Dev.to article can be found right here: [https://dev.to/chwistophe/rails-7-pagination-with-turbo-5bb4-temp-slug-769250](https://dev.to/chwistophe/rails-7-pagination-with-turbo-5bb4-temp-slug-769250)
